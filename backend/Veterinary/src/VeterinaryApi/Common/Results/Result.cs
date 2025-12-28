@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VeterinaryApi.Common.Errors;
 
-namespace VeterinaryApi.Common.Result;
+namespace VeterinaryApi.Common.Results;
 
 public class Result
 {
