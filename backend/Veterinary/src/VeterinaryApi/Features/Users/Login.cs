@@ -12,7 +12,7 @@ public static class Login
     public record LoginCommand(string Email, string Password)
         : ICommand<Response>;
 
-    internal class LoginCommandHandler : ICommandHandler<LoginCommand, Response>
+    public class LoginCommandHandler : ICommandHandler<LoginCommand, Response>
     {
         private readonly IApplicationDbContext _db;
         private readonly IPasswordHasher _passwordHahser;
