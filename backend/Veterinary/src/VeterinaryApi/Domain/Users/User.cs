@@ -9,7 +9,7 @@ public class User : Entity
     public string FirstName { get; private set; } = null!;
     public string LastName { get; private set; } = null!;
     public string Email { get; private set; } = null!;
-    public string PasswordHash { get;  set; } = null!;
+    public string PasswordHash { get; set; } = null!;
     public UserRoles Role { get; private set; }
     public bool IsActive { get; private set; }
 
@@ -30,12 +30,31 @@ public class User : Entity
 
         var user = new User
         {
-            Id = Guid.NewGuid(),
             FirstName = firstName,
-            LastName= lastName,
+            LastName = lastName,
             PasswordHash = passwordHash,
             Email = email,
             Role = role,
+            IsActive = true
+        };
+        return user;
+    }
+
+    public static User Register(
+            string userName,
+            string firstName,
+            string lastName,
+            string email,
+            string passwordHash)
+    {
+        var user = new User
+        {
+            UserName = userName,
+            FirstName = firstName,
+            LastName = lastName,
+            PasswordHash = passwordHash,
+            Email = email,
+            Role = UserRoles.Doctor,
             IsActive = true
         };
         return user;
