@@ -1,8 +1,9 @@
-﻿namespace VeterinaryApi.Domain.Users
+﻿using VeterinaryApi.Domain.Common;
+
+namespace VeterinaryApi.Domain.Users
 {
-    public class UserSession
+    public class UserSession : Entity
     {
-        public Guid Id { get; private set; }
 
         public Guid UserId { get; set; }
 
@@ -11,7 +12,6 @@
 
         public DateTime? ExpiresAt { get; set; }
 
-        public DateTime CreatedAt { get; set; }
 
         public User User { get; set; } = null!;
 

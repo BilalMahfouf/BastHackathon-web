@@ -50,7 +50,6 @@ public static class ForgetPassword
                 UserId = user.Id,
                 Token = token,
                 TokenType = UserSessionTokenType.ResetPassword,
-                CreatedAt = DateTime.UtcNow,
                 ExpiresAt = DateTime.UtcNow.AddMinutes(15)
             };
             _db.UserSessions.Add(userSession);

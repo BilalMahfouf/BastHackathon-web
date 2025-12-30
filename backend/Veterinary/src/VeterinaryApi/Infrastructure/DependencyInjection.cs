@@ -1,18 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using VeterinaryApi.Common.Abstracions;
+using VeterinaryApi.Common.Abstracions.Emails;
 using VeterinaryApi.Infrastructure.Auth;
+using VeterinaryApi.Infrastructure.Interceptors;
 using VeterinaryApi.Infrastructure.Persistence;
 using VeterinaryApi.Infrastructure.Services.Hashers;
+using VeterinaryApi.Infrastructure.Services.Notifications;
+using VeterinaryApi.Infrastructure.Services.Users;
 
 namespace VeterinaryApi.Infrastructure;
 
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
 
         services.AddSingleton<IPasswordHasher, Argon2PasswordHasher>();
@@ -50,13 +56,34 @@ public static class DependencyInjection
                };
            });
 
+        // interceptors config
+
+        services.AddSingleton<AuditInterceptor>();
+
         // ef core config  
         var connectionString = Environment
             .GetEnvironmentVariable("DefaultConnection");
-        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
+        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
+            (sp, options) =>
         {
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(connectionString)
+            .AddInterceptors(
+                sp.GetRequiredService<AuditInterceptor>());
         });
+
+        // Email Options config 
+        services.Configure<EmailOptions>(options =>
+        {
+            options.Port = configuration.GetValue<int>("EMAIL_CONFIGURATIONS:PORT");
+            options.Host = configuration.GetValue<string>("EMAIL_CONFIGURATIONS:HOST") ?? throw new InvalidOperationException("EMAIL_CONFIGURATIONS_HOST is not set");
+            options.Password = Environment.GetEnvironmentVariable("EMAIL_CONFIGURATIONS_PASSWORD") ?? throw new InvalidOperationException("EMAIL_CONFIGURATIONS_PASSWORD environment variable is not set");
+            options.Email = Environment.GetEnvironmentVariable("EMAIL_CONFIGURATIONS_EMAIL") ?? throw new InvalidOperationException("EMAIL_CONFIGURATIONS_EMAIL environment variable is not set");
+        });
+        services.AddSingleton<IEmailService, EmailService>();
+
+        services.AddScoped<ICurrentUser, CurrentUserService>();
+
+        services.AddHttpContextAccessor();
 
         return services;
     }

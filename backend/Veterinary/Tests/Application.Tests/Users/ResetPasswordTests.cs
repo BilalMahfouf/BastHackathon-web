@@ -131,7 +131,7 @@ public class ResetPasswordTests
             Token = token,
             TokenType = UserSessionTokenType.ResetPassword,
             ExpiresAt = DateTime.UtcNow.AddMinutes(-1), // Expired
-            CreatedAt = DateTime.UtcNow.AddMinutes(-16)
+            CreatedOnUtc = DateTime.UtcNow.AddMinutes(-16)
         };
 
         var user = CreateUserWithSessions(
@@ -172,7 +172,7 @@ public class ResetPasswordTests
             Token = token,
             TokenType = UserSessionTokenType.Refresh, // Wrong type
             ExpiresAt = DateTime.UtcNow.AddDays(7),
-            CreatedAt = DateTime.UtcNow
+            CreatedOnUtc = DateTime.UtcNow
         };
 
         var user = CreateUserWithSessions(
@@ -215,7 +215,7 @@ public class ResetPasswordTests
             Token = token,
             TokenType = UserSessionTokenType.ResetPassword,
             ExpiresAt = DateTime.UtcNow.AddMinutes(10),
-            CreatedAt = DateTime.UtcNow.AddMinutes(-5)
+            CreatedOnUtc = DateTime.UtcNow.AddMinutes(-5)
         };
 
         var user = CreateUserWithSessions(
@@ -266,7 +266,7 @@ public class ResetPasswordTests
             Token = token,
             TokenType = UserSessionTokenType.ResetPassword,
             ExpiresAt = DateTime.UtcNow.AddMinutes(10),
-            CreatedAt = DateTime.UtcNow
+            CreatedOnUtc = DateTime.UtcNow
         };
 
         var user = CreateUserWithSessions(
@@ -315,7 +315,7 @@ public class ResetPasswordTests
             Token = "refresh-token",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.UtcNow.AddDays(7),
-            CreatedAt = DateTime.UtcNow
+            CreatedOnUtc = DateTime.UtcNow
         };
 
         var expiredResetSession = new UserSession
@@ -323,7 +323,7 @@ public class ResetPasswordTests
             Token = "expired-reset-token",
             TokenType = UserSessionTokenType.ResetPassword,
             ExpiresAt = DateTime.UtcNow.AddMinutes(-10),
-            CreatedAt = DateTime.UtcNow.AddMinutes(-25)
+            CreatedOnUtc = DateTime.UtcNow.AddMinutes(-25)
         };
 
         var validResetSession = new UserSession
@@ -331,7 +331,7 @@ public class ResetPasswordTests
             Token = validToken,
             TokenType = UserSessionTokenType.ResetPassword,
             ExpiresAt = DateTime.UtcNow.AddMinutes(10),
-            CreatedAt = DateTime.UtcNow.AddMinutes(-5)
+            CreatedOnUtc = DateTime.UtcNow.AddMinutes(-5)
         };
 
         var user = CreateUserWithSessions(
@@ -376,7 +376,7 @@ public class ResetPasswordTests
             Token = token,
             TokenType = UserSessionTokenType.ResetPassword,
             ExpiresAt = DateTime.UtcNow.AddMinutes(10),
-            CreatedAt = DateTime.UtcNow
+            CreatedOnUtc = DateTime.UtcNow
         };
 
         var user = CreateUserWithSessions(
@@ -422,7 +422,7 @@ public class ResetPasswordTests
             Token = token,
             TokenType = UserSessionTokenType.ResetPassword,
             ExpiresAt = DateTime.UtcNow.AddSeconds(-1), // Just expired
-            CreatedAt = DateTime.UtcNow.AddMinutes(-15)
+            CreatedOnUtc = DateTime.UtcNow.AddMinutes(-15)
         };
 
         var user = CreateUserWithSessions(

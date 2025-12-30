@@ -21,7 +21,7 @@ builder.Services.Scan(scan => scan.FromAssembliesOf(typeof(Program))
         .AssignableTo(typeof(ICommandHandler<,>)), publicOnly: false)
     .AsImplementedInterfaces().WithScopedLifetime());
 
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 
 

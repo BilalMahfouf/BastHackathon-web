@@ -72,7 +72,7 @@ public class RefreshTokenTests
             Token = "expired-refresh-token",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.Now.AddDays(-1), // Expired
-            CreatedAt = DateTime.UtcNow.AddDays(-8),
+            CreatedOnUtc = DateTime.UtcNow.AddDays(-8),
             User = user
         };
 
@@ -112,7 +112,7 @@ public class RefreshTokenTests
             Token = "valid-refresh-token",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.Now.AddDays(7), // Not expired
-            CreatedAt = DateTime.UtcNow,
+            CreatedOnUtc = DateTime.UtcNow,
             User = user
         };
 
@@ -166,7 +166,7 @@ public class RefreshTokenTests
             Token = "valid-refresh-token",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.Now.AddDays(7),
-            CreatedAt = DateTime.UtcNow,
+            CreatedOnUtc = DateTime.UtcNow,
             User = user
         };
 
@@ -216,7 +216,7 @@ public class RefreshTokenTests
             Token = "admin-refresh-token",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.Now.AddDays(7),
-            CreatedAt = DateTime.UtcNow,
+            CreatedOnUtc = DateTime.UtcNow,
             User = user
         };
 
@@ -264,7 +264,7 @@ public class RefreshTokenTests
             Token = "expiring-now-token",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.Now.AddSeconds(-1), // Just expired
-            CreatedAt = DateTime.UtcNow.AddDays(-7),
+            CreatedOnUtc = DateTime.UtcNow.AddDays(-7),
             User = user
         };
 
@@ -295,7 +295,7 @@ public class RefreshTokenTests
             Token = "token-user1",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.Now.AddDays(7),
-            CreatedAt = DateTime.UtcNow,
+            CreatedOnUtc = DateTime.UtcNow,
             User = user1
         };
 
@@ -305,7 +305,7 @@ public class RefreshTokenTests
             Token = "token-user2",
             TokenType = UserSessionTokenType.Refresh,
             ExpiresAt = DateTime.Now.AddDays(7),
-            CreatedAt = DateTime.UtcNow,
+            CreatedOnUtc = DateTime.UtcNow,
             User = user2
         };
 
