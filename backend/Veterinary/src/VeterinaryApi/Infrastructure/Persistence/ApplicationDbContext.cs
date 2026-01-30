@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VeterinaryApi.Common.Abstracions;
+using VeterinaryApi.Domain.Sensors;
 using VeterinaryApi.Domain.Users;
 using VeterinaryApi.Infrastructure.Persistence.Configurations.Users;
 
@@ -14,6 +15,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<UserSession> UserSessions { get; set; } = null!;
+    public DbSet<Esp32Readingcs> Esp32Readings { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

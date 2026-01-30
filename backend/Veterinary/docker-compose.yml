@@ -1,11 +1,22 @@
 services:
-  raqib-api:
+  raqibmqtt:
+    image: eclipse-mosquitto:2
+    container_name: mqtt
+    ports:
+      - "1883:1883"
+    volumes:
+    - ./.container/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+    restart: unless-stopped
+
+  raqibapi:
     image: raqib-api:latest
     build:
       context: ./src/VeterinaryApi
       dockerfile: Dockerfile
     env_file:
-      - ./.env
+       - ./.env
+    
     ports:
       - "8080:8080"
       - "7256:7256"
@@ -17,33 +28,20 @@ services:
     volumes:
       - ${HOME}/.aspnet/https:/https/:ro
       - ./src/VeterinaryApi/.env:/app/.env:ro
-    depends_on:
-      - raqib-database
 
-  raqib-database:
+  raqib.database:
     image: postgres:latest
     environment:
-      - POSTGRES_DB=raqib_db
-      - POSTGRES_USER=raqib_user
-      - POSTGRES_PASSWORD=2501
+    - POSTGRES_DB=raqib_db
+    - POSTGRES_USER=raqib_user
+    - POSTGRES_PASSWORD=2501
     volumes:
       - raqib-db-data:/var/lib/postgresql
     restart: unless-stopped
     ports:
       - "5432:5432"
-
-  raqib-mqtt:
-    image: eclipse-mosquitto:2
-    restart: unless-stopped
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    volumes:
-      - ./.container/mosquitto/config:/mosquitto/config:ro
-      - ./.container/mosquitto/data:/mosquitto/data
-      - ./.container/mosquitto/log:/mosquitto/log
-
-  raqib-pgadmin:
+ 
+  pgadmin:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: billelmh501@gmail.com
@@ -51,7 +49,7 @@ services:
     ports:
       - "5050:80"
     depends_on:
-      - raqib-database
+      - raqib.database
 
 volumes:
   raqib-db-data:
