@@ -12,6 +12,12 @@
 # dotenv files
 .env
 
+# Docker container data (keep config files)
+.container/postgres/
+.container/mosquitto/data/
+.container/mosquitto/log/
+!.container/mosquitto/config/
+
 # User-specific files
 *.rsuser
 *.suo
